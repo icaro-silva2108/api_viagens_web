@@ -210,25 +210,14 @@ def update_profile():
 
     # Tratamento de nome
     if "name" in data:
+
         name = data["name"].title()
-        if not name:
-             return jsonify({
-                "success" : False,
-                "message" : "O campo nome deve ser preenchido caso deseje alterá-lo."
-                }), 400
-        
         data["name"] = name
 
     # Tratamento de email
     if "email" in data:
+    
         email = data.get("email")
-
-        if not email:
-            return jsonify({
-                "success" : False,
-                "message" : "O campo email deve ser preenchido caso deseje alterá-lo."
-                }), 400 
-
         if not utilities.email_format_validation(email):
             return jsonify({
                 "success" : False,
@@ -246,18 +235,6 @@ def update_profile():
 
         password = data.get("password")
         password_confirm = data.get("password_confirm")
-
-        if not password:
-            return jsonify({
-                "success" : False,
-                "message" : "O campo senha deve ser preenchido caso deseje alterá-la."
-                }), 400
-
-        if not password_confirm:
-            return jsonify({
-                "success" : False,
-                "message" : "O campo de confirmação de senha deve ser preenchido caso deseje alterá-la."
-                }), 400
 
         if password != password_confirm:
             return jsonify({
@@ -279,9 +256,9 @@ def update_profile():
     
     # Tratamento de data de nascimento
     if "birth_date" in data:
+
         birth_date_str = data.get("birth_date")
         birth_date, error = utilities.birth_date_validation(birth_date_str)
-
         if not birth_date:
 
             if error == "format":
