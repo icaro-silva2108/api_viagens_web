@@ -71,3 +71,9 @@ def mock_none_identity_token():
 
     with patch("app.api.protected_routes.get_token_identity", return_value=None):
         yield
+
+@pytest.fixture(scope="function")
+def mock_user_reservation_true():
+
+    with patch("app.api.protected_routes.utilities.search_user_reservation", return_value=True):
+        yield
