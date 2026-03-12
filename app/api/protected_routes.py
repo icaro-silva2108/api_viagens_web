@@ -224,6 +224,12 @@ def update_profile():
                 "message" : "Formato de email inválido(email@email.com)."
                 }), 400
 
+        if utilities.search_user_info(email):
+            return jsonify({
+                "success" : False,
+                "message" : "Este email já está sendo utilizado. Tente outro email."
+                }), 409
+
     # Tratamento de senha
     if "password" in data:
 
