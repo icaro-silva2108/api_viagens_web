@@ -175,3 +175,10 @@ def mock_change_user_info_none():
 
     with patch("app.api.protected_routes.user_service.change_user_info", return_value=None):
         yield
+
+# Mock que força create_reservation retornar None
+@pytest.fixture(scope="function")
+def mock_create_reservation_none():
+
+    with patch("app.api.protected_routes.reservation_service.create_reservation", return_value=None):
+        yield
