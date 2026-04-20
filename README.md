@@ -40,11 +40,11 @@ O objetivo do projeto é aprofundar conhecimentos de desenvolvimento backend/web
 - Abra o Git Bash em uma pasta de sua preferência.  
 - Dentro do terminal Git use:  
 ```bash
-git clone https://github.com/icaro-silva2108/plataforma_viagens_web.git
+git clone https://github.com/icaro-silva2108/api_viagens_web.git
 ```
 - Acesse a pasta criada:  
 ```console
-cd plataforma_viagens_web
+cd api_viagens_web
 ```
 
 ## :wrench: 3. Configuração de Ambiente:
@@ -70,7 +70,7 @@ pip install -r requirements.txt
 
 - Usando o MySQL, crie um Schema que será conectado ao projeto.
 ```sql
-CREATE DATABASE plataforma_viagens;
+CREATE DATABASE api_viagens;
 ```
 - Use os scripts para criar as tabelas em localizados em:  
 app/database/tables.sql  
@@ -80,7 +80,14 @@ app/database/token_blacklist.sql
 ## :recycle: 6. Configure o .env:
 
 - Adicione um arquivo .env no projeto.  
-- Para definir as variáveis de ambiente necessárias, use o arquivo .env.example do repositório como referência.
+- Para definir as variáveis de ambiente necessárias, use o arquivo .env.example do repositório como referência. Ou faça como no exemplo:
+```JSON
+DB_HOST=localhost
+DB_USER=seu_usuário
+DB_PASSWORD=sua_senha
+DB_NAME=seu_database
+JWT_SECRET_KEY=sua_chave_secreta
+```
 
 ## :microscope: 7. Executar e Testar a API:
 
