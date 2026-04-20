@@ -81,7 +81,7 @@ app/database/token_blacklist.sql
 
 - Adicione um arquivo .env no projeto.  
 - Para definir as variáveis de ambiente necessárias, use o arquivo .env.example do repositório como referência. Ou faça como no exemplo:
-```JSON
+```env
 DB_HOST=localhost
 DB_USER=seu_usuário
 DB_PASSWORD=sua_senha
