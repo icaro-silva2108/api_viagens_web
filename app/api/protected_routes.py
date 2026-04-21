@@ -119,15 +119,8 @@ def show_user_reservations():
 
     # Reservas do usuário
     reservations = reservation_service.show_reservations(user_id)
-
-    if not reservations:
-        return jsonify({
-            "success" : True,
-            "user_reservations" : []
-            }), 200
-
+    
     results = []
-
     for r in reservations:
         results.append({
             "id" : r[0],

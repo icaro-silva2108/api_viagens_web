@@ -144,3 +144,76 @@ def test_create_reservation_failed(user_tokens, create_fake_destination, mock_cr
     assert response.status_code == 500
     assert response.json["success"] is False
     assert response.json["message"] == "Não foi possível criar a reserva."
+
+"""Testes rota reservations com método GET"""
+
+# Testa usuário sem reservas
+def test_list_reservations(user_tokens):
+
+    client = user_tokens.get("client")
+    access_token = user_tokens.get("access_token")
+
+    response = client.get("/api/reservations", headers={"Authorization" : "Bearer {}".format(access_token)})
+
+    assert response is not None
+    assert response.status_code == 200
+    assert response.json["success"] is True
+    assert "user_reservations" in response.json
+    assert response.json["user_reservations"] == []
+
+# Testa rota sem identidade do token
+def test_list_reservations_none_identity(user_tokens, mock_none_identity_token):
+
+    client = user_tokens.get("client")
+    access_token = user_tokens.get("access_token")
+
+    response = client.get("/api/reservations", headers={"Authorization" : "Bearer {}".format(access_token)})
+
+    assert response is not None
+    assert response.status_code == 401
+    assert response.json["success"] is False
+    assert response.json["message"] == "Usuário não existe ou não está autorizado"
+
+"""Testes rota reservations com método DELETE"""
+
+# Testa cancelamento de reserva bem sucedido
+def test_cancel_reservation_success(client_no_ratelimit, create_fake_reservation):
+
+    client = client_no_ratelimit
+    access_token = create_fake_reservation.get("access_token")
+    reservation_id = create_fake_reservation.get("fake_reservation_id")
+
+    response = client.delete(f"/api/reservations/{reservation_id}",
+                             headers={"Authorization" : "Bearer {}".format(access_token)})
+    
+    assert response is not None
+    assert response.status_code == 200
+    assert response.json["success"] is True
+    assert response.json["message"] == f"Reserva de ID: {reservation_id} cancelada com sucesso."
+    assert response.json["canceled_res_id"] == reservation_id
+
+# Testa rota sem identidade do token
+def test_cancel_reservation_none_identity(user_tokens, mock_none_identity_token):
+
+    client = user_tokens.get("client")
+    access_token = user_tokens.get("access_token")
+
+    response =  client.delete("/api/reservations/1", headers={"Authorization" : "Bearer {}".format(access_token)})
+
+    assert response is not None
+    assert response.status_code == 401
+    assert response.json["success"] is False
+    assert response.json["message"] == "Usuário não existe ou não está autorizado"
+
+# Testa cancelamento de reserva não existente/pertencente ao usuário
+def test_cancel_reservation_nonexistent(user_tokens):
+
+    client = user_tokens.get("client")
+    access_token = user_tokens.get("access_token")
+
+    response = client.delete("/api/reservations/1", headers={"Authorization" : "Bearer {}".format(access_token)})
+
+    assert response is not None
+    assert response.status_code == 404
+    assert response.json["success"] is False
+    assert response.json["message"] == "Reserva não encontrada ou não pertence ao usuário."

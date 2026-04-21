@@ -54,6 +54,7 @@ def auth_fixture(client_no_ratelimit):
 
         yield {
             "client" : client,
+            "id" : response_signin.json["user_id"],
             "access_token" : response_signin.json["access_token"],
             "refresh_token" : response_signin.json["refresh_token"]
         }
@@ -131,6 +132,47 @@ def create_fake_destination():
                 conn.commit()
                 cursor.close()
                 conn.close()
+
+# Fixture que cria reserva para teste de cancelamento
+@pytest.fixture(scope="function")
+def create_fake_reservation(user_tokens, create_fake_destination):
+
+    conn = None
+    cursor = None
+
+    try:
+        
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        if cursor:
+
+            user_id = user_tokens.get("id")
+            access_token = user_tokens.get("access_token")
+            cursor.execute("""
+                        INSERT INTO reservations
+                        (user_id, destination_id, travel_date)
+                        VALUES (%s, %s, %s);""",
+                        (user_id, create_fake_destination.get("fake_destination_id"), "2040-12-30"))
+        
+            if conn:
+                conn.commit()
+                fake_id = cursor.lastrowid
+        
+        yield {
+            "fake_reservation_id" : fake_id,
+            "user_id" : user_id,
+            "access_token" : access_token
+        }
+
+    finally:
+        if cursor:
+            cursor.close()
+
+            if conn:
+                conn.commit()
+                conn.close()
+
 
 """Fixtures de Mocks para os testes"""
 
