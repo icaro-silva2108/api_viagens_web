@@ -224,3 +224,10 @@ def mock_create_reservation_none():
 
     with patch("app.api.protected_routes.reservation_service.create_reservation", return_value=None):
         yield
+
+# Mock que cria side effect para levantar erro em send_access_token
+@pytest.fixture(scope="function")
+def mock_exception_access_token():
+
+    with patch("app.api.protected_routes.send_access_token", side_effect=Exception("Erro simulado")):
+        yield
