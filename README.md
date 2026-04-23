@@ -6,12 +6,15 @@ O projeto conta com funcionalidades como:
 - Cancelamento de Cadastro e Atualização de Informações  
 - Listagem, Criação e Cancelamento de Reservas   
 - Listagem de destinos
+> Status do Projeto: Concluído :heavy_check_mark:
 
 # :iphone: Tecnologias Utilizadas:
 - Python  
 - MySQL  
 - Flask  
 - Pytest
+- JWT (Flask-JWT-Extended)
+- Flask-Limiter
 
 # :bookmark_tabs: Estrutura do Projeto
 - app/  
@@ -23,19 +26,19 @@ O projeto conta com funcionalidades como:
 # :chart_with_upwards_trend: Objetivo do Projeto
 O objetivo do projeto é aprofundar conhecimentos de desenvolvimento backend/web e estruturação de APIs REST, conexão com banco de dados relacional, autenticação via JWT, testes de software e controle de acesso a rotas protegidas. Inicialmente o projeto foi planejado como fullstack, mas por meio de uma decisão foi reestruturado para o foco exclusivo em backend, visando aprofundamento técnico e boas práticas.
 
-# :hourglass: Próximos Passos
-- Finalizar testes automatizados.  
-- Atualizar documentação ao longo do projeto.  
-
 # :computer: Como Rodar o Projeto Localmente
 
 ## :page_facing_up: 1. Requisitos iniciais:
 
-- Tenha instalado o Python com versão maior ou igual a 3.9+(Recomendação: 3.11.9 - Usada para o desenvolvimento)  
+- Tenha instalado o Python com versão 3.9+(Recomendação: 3.11.9 - Usada para o desenvolvimento)  
 - Escolha uma pasta que deseja alocar o projeto(opcional).
 - Tenha o MySQL instalado e em execução.
 
-## :inbox_tray: 2. Clone o Repositório:
+## :inbox_tray: 2. Clone o Repositório ou Baixe a Versão em Lançamentos:
+
+- Baixe a versão 1.0.0 do projeto através de [Releases](https://github.com/icaro-silva2108/api_viagens_web/releases/tag/v1.0.0)  
+
+ou clone o repositório:
 
 - Abra o Git Bash em uma pasta de sua preferência.  
 - Dentro do terminal Git use:  
@@ -46,7 +49,6 @@ git clone https://github.com/icaro-silva2108/api_viagens_web.git
 ```console
 cd api_viagens_web
 ```
-
 ## :wrench: 3. Configuração de Ambiente:
 
 - Dentro da pasta do projeto inicie o ambiente virtual através do terminal:  
@@ -57,7 +59,7 @@ python -m venv venv
 ```console
 venv\Scripts\Activate
 ```  
-- Obs: Certifique-se de que aparece "(venv)" antes do caminho no terminal.
+> Obs: Certifique-se de que aparece "(venv)" antes do caminho no terminal.
 
 ## :file_folder: 4. Instalar Dependências(Libs):
 
@@ -106,7 +108,7 @@ Running on http://127.0.0.1:5000
 - Insomnia
 - Thunder Client(VS Code)
 
-Exemplo(Rota pública, não precisa de autenticação):
+> Exemplo(Rota pública, não precisa de autenticação):
 ```console
 GET http://127.0.0.1:5000/api/destinations
 ```
